@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'yawi';
+
+  // Loader
+  isLoading!: boolean;
+
+  ngOnInit() {
+    this.isLoading = true;
+
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }
 }

@@ -1,0 +1,10 @@
+<div class="custom-select">
+    <select [(ngModel)]="selectedOption" (ngModelChange)="onOptionChange()">
+        <option *ngFor="let option of options" [value]="option.value">
+            <span class="option-image">
+                <img src="{{ option.image }}" alt="{{ option.label }}" />
+            </span>
+            {{ option.label }}
+        </option>
+    </select>
+</div>
