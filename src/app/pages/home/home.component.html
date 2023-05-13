@@ -13,28 +13,27 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mx-auto navbar-center" id="mySidenav">
         <li class="nav-item" [ngClass]="{'active':currentSection === 'home'}">
-          <a href="javascript: void(0);" [ngxScrollTo]="'#home'" class="nav-link">Home</a>
+          <a href="javascript: void(0);" [ngxScrollTo]="'#home'" class="nav-link">Acceuil</a>
         </li>
         <li class="nav-item" [ngClass]="{'active':currentSection === 'features'}">
-          <a href="javascript: void(0);" [ngxScrollTo]="'#features'" class="nav-link">Features</a>
+          <a href="javascript: void(0);" [ngxScrollTo]="'#features'" class="nav-link">Services</a>
         </li>
-        <li class="nav-item" [ngClass]="{'active':currentSection === 'pricing'}">
+        <!-- <li class="nav-item" [ngClass]="{'active':currentSection === 'pricing'}">
           <a href="javascript: void(0);" [ngxScrollTo]="'#pricing'" class="nav-link" [ngxScrollToOffset]="5">Pricing</a>
         </li>
         <li class="nav-item" [ngClass]="{'active':currentSection === 'blog'}">
           <a href="javascript: void(0);" [ngxScrollTo]="'#blog'" class="nav-link" [ngxScrollToOffset]="5">Blog</a>
-        </li>
+        </li> -->
         <li class="nav-item" [ngClass]="{'active':currentSection === 'contact'}">
-          <a href="javascript: void(0);" [ngxScrollTo]="'#contact'" class="nav-link" [ngxScrollToOffset]="5">Contact
-            Us</a>
+          <a href="javascript: void(0);" [ngxScrollTo]="'#contact'" class="nav-link" [ngxScrollToOffset]="5">Contact</a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-center">
         <li class="nav-item">
-          <a href="javascript: void(0);" class="nav-link" (click)="loginModal(content)">Log in</a>
+          <a href="javascript: void(0);" class="nav-link" (click)="loginModal(content)">Connexion</a>
         </li>
         <li class="nav-item">
-          <a href="javascript: void(0);" class="nav-link" (click)="registerModal(registercontent)">Register</a>
+          <a href="javascript: void(0);" class="nav-link" (click)="registerModal(registercontent)">Inscription</a>
         </li>
       </ul>
     </div>
@@ -73,8 +72,8 @@
               <div class="area-form row mb-3">
                 <div class="col-md-6 mb-2">
                   <div class="form-group">
-                    <label for="name">Name*</label>
-                    <input id="name" type="text" class="form-control" autocomplete="off" placeholder="Your name...">
+                    <label for="name">Wallet*</label>
+                    <app-custom-dropdown></app-custom-dropdown>
                   </div>
                 </div>
                 <div class="col-md-6 mb-2">
@@ -94,30 +93,18 @@
               <div class="area-form row mb-3">
                 <div class="col-md-6 mb-2">
                   <div class="form-group">
-                    <label for="name">Name*</label>
-                    <input id="name" type="text" class="form-control" autocomplete="off" placeholder="Your name...">
+                    <label for="name">Wallet*</label>
+                    <app-custom-dropdown></app-custom-dropdown>
                   </div>
                 </div>
                 <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <label for="email">Montant*</label>
-                    <input id="email" type="number" class="form-control" autocomplete="off" placeholder="Montant...">
-                  </div>
-                </div>
-                <div class="col-md-12">
                   <div class="form-group">
                     <label for="email">Numéro*</label>
                     <input id="email" type="tel" class="form-control" autocomplete="off" placeholder="Votre numéro...">
                   </div>
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <app-custom-dropdown></app-custom-dropdown>
-
-                  </div>
-                </div>
               </div>
-              <button type="submit" class="btn btn-primary btn-block text-uppercase">Valider</button>
+              <button type="submit" class="valid-btn text-uppercase w-100">Valider</button>
             </form>
           </div>
         </div>
@@ -127,9 +114,9 @@
   <!-- Hero End -->
 
   <app-services></app-services>
-  <app-features></app-features>
-  <app-pricing></app-pricing>
-  <app-blog></app-blog>
+  <!-- <app-features></app-features>
+  <app-pricing></app-pricing> -->
+  <!-- <app-blog></app-blog> -->
   <app-contact></app-contact>
   <app-footer></app-footer>
 </div>
@@ -137,50 +124,31 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-body">
     <div class="text-center">
-      <h3 class="title mb-4">Welcome To Lezir</h3>
-      <h4 class="text-uppercase text-primary"><b>Login</b></h4>
+      <h3 class="title mb-4">Bienvenue sur Yawi</h3>
+      <h4 class="text-uppercase text-primary"><b>Connexion</b></h4>
     </div>
     <div class="login-form mt-4">
       <form>
         <div class="form-group">
-          <label for="exampleInputEmail1">Username / Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Youremail@gmail.com">
+          <label for="exampleInputEmail1">Téléphone</label>
+          <input type="tel" class="form-control" id="exampleInputEmail1" placeholder="Votre numéro">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <a href="javascript: void(0);" class="float-end text-muted font-size-15">Forgot Password.?</a>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="customCheck1">
-          <label class="custom-control-label font-size-15" for="customCheck1">Remember Me</label>
+          <label for="exampleInputPassword1">Mot de passe</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
         </div>
         <div class="text-center mt-4">
-          <button type="submit" class="btn btn-primary">Login <i-feather class="icon-size-15 icon ms-1"
-              name="arrow-right-circle"></i-feather></button>
+          <button type="submit" class="btn btn-primary">Se connecter
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+              class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round"
+              stroke-linejoin="round" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" x2="3" y1="12" y2="12" />
+            </svg>
+          </button>
         </div>
       </form>
-      <div class="position-relative text-center mt-4">
-        <span class="login-border"></span>
-        <p class="social-login text-muted font-size-17">Social Login</p>
-      </div>
-      <div class="text-center">
-        <ul class="list-inline mt-2 mb-3">
-          <li class="list-inline-item me-3"><a href="javascript: void(0);" class="login-social-icon icon-primary">
-              <i-feather class="icon-xs" name="facebook"></i-feather>
-            </a></li>
-          <li class="list-inline-item me-3"><a href="javascript: void(0);" class="login-social-icon icon-info">
-              <i-feather class="icon-xs" name="twitter"></i-feather>
-            </a></li>
-          <li class="list-inline-item me-3"><a href="javascript: void(0);" class="login-social-icon icon-danger">
-              <i-feather class="icon-xs" name="instagram"></i-feather>
-            </a></li>
-          <li class="list-inline-item"><a href="javascript: void(0);" class="login-social-icon icon-success">
-              <i-feather class="icon-xs" name="linkedin"></i-feather>
-            </a></li>
-        </ul>
-        <p class="text-muted mb-0">New User? <a href="javascript: void(0);" class="text-primary">Signup</a></p>
-      </div>
     </div>
   </div>
 </ng-template>
@@ -188,54 +156,51 @@
 <ng-template #registercontent let-c="close" let-d="dismiss">
   <div class="modal-body">
     <div class="text-center">
-      <h3 class="title mb-4">Welcome To Lezir</h3>
-      <h4 class="text-uppercase text-primary"><b>Register</b></h4>
+      <h3 class="title mb-4">Bienvenue sur Yawi</h3>
+      <h4 class="text-uppercase text-primary"><b>Inscription</b></h4>
     </div>
     <div class="login-form mt-4">
       <form>
-        <div class="form-group">
-          <label for="exampleInputUsername">User Name</label>
-          <input type="text" class="form-control" id="exampleInputUsername" placeholder="Enter Name">
+        <div class="row mb-3">
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <label for="exampleInputUsername">Prénom</label>
+              <input type="text" class="form-control" id="exampleInputUsername" placeholder="Votre prénom">
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <label for="exampleInputEmail2">Nom</label>
+              <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Votre nom">
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="exampleInputEmail2">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Youremail@gmail.com">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword2">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-        </div>
-        <a href="javascript: void(0);" class="float-end text-muted font-size-15">Forgot Password.?</a>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="customCheck2">
-          <label class="custom-control-label font-size-15" for="customCheck2">Remember Me</label>
+        <div class="row mb-3">
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <label for="exampleInputUsername">Téléphone</label>
+              <input type="tel" class="form-control" id="exampleInputUsername" placeholder="Votre numéro">
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <label for="exampleInputEmail2">Mot de passe</label>
+              <input type="password" class="form-control" id="exampleInputEmail2" placeholder="Mot de passe">
+            </div>
+          </div>
         </div>
         <div class="text-center mt-4">
-          <button type="submit" class="btn btn-primary">Register <i-feather class="icon-size-15 icon ms-1"
-              name="arrow-right-circle"></i-feather></button>
+          <button type="submit" class="btn btn-primary">S'inscrire
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+              class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round"
+              stroke-linejoin="round" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" x2="3" y1="12" y2="12" />
+            </svg>
+            </button>
         </div>
       </form>
-      <div class="position-relative text-center mt-4">
-        <span class="login-border"></span>
-        <p class="social-login text-muted font-size-17">Social Login</p>
-      </div>
-      <div class="text-center">
-        <ul class="list-inline mt-2 mb-3">
-          <li class="list-inline-item me-3"><a href="javascript: void(0);" class="login-social-icon icon-primary">
-              <i-feather class="icon-xs" name="facebook"></i-feather>
-            </a></li>
-          <li class="list-inline-item me-3"><a href="javascript: void(0);" class="login-social-icon icon-info">
-              <i-feather class="icon-xs" name="twitter"></i-feather>
-            </a></li>
-          <li class="list-inline-item me-3"><a href="javascript: void(0);" class="login-social-icon icon-danger">
-              <i-feather class="icon-xs" name="instagram"></i-feather>
-            </a></li>
-          <li class="list-inline-item"><a href="javascript: void(0);" class="login-social-icon icon-success">
-              <i-feather class="icon-xs" name="linkedin"></i-feather>
-            </a>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </ng-template>
