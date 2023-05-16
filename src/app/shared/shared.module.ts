@@ -16,6 +16,8 @@ import {
 import { ScrollspyDirective } from './scrollspy.directive';
 import { CustomDropdownComponent } from './custom-dropdown/custom-dropdown.component';
 import { FormsModule } from '@angular/forms';
+import { AccordionComponent } from './accordion/accordion.component';
+import { LoaderComponent } from './loader/loader.component';
 
 const icons = {
   Mail, Link, PhoneCall, Clock, MapPin, Facebook, Twitter, Instagram, Linkedin, Send, Calendar, User, Server, Rss, Layout, LifeBuoy,
@@ -24,13 +26,13 @@ const icons = {
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
-  declarations: [FeaturesComponent, PricingComponent, BlogComponent, ContactComponent, ServicesComponent, FooterComponent, ScrollspyDirective, CustomDropdownComponent],
+  declarations: [FeaturesComponent, PricingComponent, BlogComponent, ContactComponent, ServicesComponent, FooterComponent, ScrollspyDirective, CustomDropdownComponent, AccordionComponent, LoaderComponent],
   imports: [
     CommonModule,
     FeatherModule.pick(icons),
     FormsModule
   ],
   // tslint:disable-next-line: max-line-length
-  exports: [FeaturesComponent, PricingComponent, BlogComponent, ContactComponent, ServicesComponent, FooterComponent, FeatherModule, ScrollspyDirective, CustomDropdownComponent]
+  exports: [FeaturesComponent, PricingComponent, BlogComponent, ContactComponent, ServicesComponent, FooterComponent, FeatherModule, ScrollspyDirective, CustomDropdownComponent, AccordionComponent, LoaderComponent]
 })
 export class SharedModule { }

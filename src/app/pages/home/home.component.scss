@@ -1,25 +1,11 @@
-.custom-accordion {
-    margin-bottom: 20px;
-  }
-
-  .custom-accordion .accordion-button {
-    background-color: #f0f0f0;
-    color: #333;
-  }
-
-  .custom-accordion .accordion-button.collapsed {
-    background-color: #d1d1d1;
-  }
-
-  .custom-accordion .accordion-button:not(.collapsed)::after {
-    content: '-';
-  }
-
-  .custom-accordion .accordion-button.collapsed::after {
-    content: '+';
-  }
-
-  .custom-accordion .accordion-body {
-    background-color: #f8f8f8;
-    color: #555;
-  }
+.icon-image {
+  width: 20px;
+  height: 20px;
+}
+.input-group-text {
+  background-color: #fbfafd !important;
+}
+.logo-icon {
+  border-radius: 50%;
+  margin-right: 2px;
+}

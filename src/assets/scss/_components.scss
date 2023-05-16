@@ -56,6 +56,34 @@
     align-items: center;
 }
 
+.login-btn {
+    padding: 7px 30px;
+    font-weight: 400;
+    text-align: center;
+    background: $primary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-btn {
+    padding: 7px 30px;
+    font-weight: 400;
+    text-align: center;
+    background: $danger;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn {
     border-radius: 3px;
     padding: 12px 30px;
@@ -162,6 +190,8 @@
     font-size: 14px;
     box-shadow: 0 2px 1px rgba(90, 79, 220, 0.3);
 }
+
+
 
 @each $color,
 $value in $theme-colors {

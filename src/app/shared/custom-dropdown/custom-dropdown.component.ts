@@ -17,7 +17,7 @@ export class CustomDropdownComponent implements OnInit {
       imagePath: '../../../assets/images/wave.png'
     },
     {
-      altText: 'Orange money',
+      altText: 'Orange Money',
       imagePath: '../../../assets/images/om.png'
     },
     {

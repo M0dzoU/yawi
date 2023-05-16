@@ -30,13 +30,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/bootstrap.min.css",
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/css/materialdesignicons.min.css",
               "src/assets/scss/style.scss"
             ],
             "scripts": [
-              "src/assets/js/bootstrap.bundle.min.js",
-              "src/assets/js/bootstrap.bundle.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
