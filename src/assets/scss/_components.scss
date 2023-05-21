@@ -84,6 +84,48 @@
     align-items: center;
 }
 
+.signIn-btn {
+    padding: 5px 25px;
+    font-weight: 900;
+    text-align: center;
+    background: $primary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signUp-btn {
+    padding: 5px 25px;
+    font-weight: 900;
+    text-align: center;
+    background: $secondary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logOut-btn {
+    padding: 5px 25px;
+    font-weight: 900;
+    text-align: center;
+    background: $secondary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn {
     border-radius: 3px;
     padding: 12px 30px;

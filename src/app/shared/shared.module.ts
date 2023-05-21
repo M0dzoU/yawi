@@ -18,6 +18,8 @@ import { CustomDropdownComponent } from './custom-dropdown/custom-dropdown.compo
 import { FormsModule } from '@angular/forms';
 import { AccordionComponent } from './accordion/accordion.component';
 import { LoaderComponent } from './loader/loader.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const icons = {
   Mail, Link, PhoneCall, Clock, MapPin, Facebook, Twitter, Instagram, Linkedin, Send, Calendar, User, Server, Rss, Layout, LifeBuoy,
@@ -26,13 +28,14 @@ const icons = {
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
-  declarations: [FeaturesComponent, PricingComponent, BlogComponent, ContactComponent, ServicesComponent, FooterComponent, ScrollspyDirective, CustomDropdownComponent, AccordionComponent, LoaderComponent],
+  declarations: [FeaturesComponent, PricingComponent, BlogComponent, ContactComponent, ServicesComponent, FooterComponent, ScrollspyDirective, CustomDropdownComponent, AccordionComponent, LoaderComponent, TransactionsComponent],
   imports: [
     CommonModule,
     FeatherModule.pick(icons),
+    NgxPaginationModule,
     FormsModule
   ],
   // tslint:disable-next-line: max-line-length
-  exports: [FeaturesComponent, PricingComponent, BlogComponent, ContactComponent, ServicesComponent, FooterComponent, FeatherModule, ScrollspyDirective, CustomDropdownComponent, AccordionComponent, LoaderComponent]
+  exports: [FeaturesComponent, PricingComponent, BlogComponent, ContactComponent, ServicesComponent, FooterComponent, FeatherModule, ScrollspyDirective, CustomDropdownComponent, AccordionComponent, LoaderComponent, TransactionsComponent]
 })
 export class SharedModule { }

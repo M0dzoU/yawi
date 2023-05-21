@@ -1,0 +1,30 @@
+<!-- form.component.html -->
+<div class="container vh-100">
+    <form [formGroup]="invoiceForm" (ngSubmit)="submitInvoice()" class="w-50">
+        <div class="mb-3">
+            <label for="amount" class="form-label">Montant</label>
+            <input type="number" class="form-control" id="amount" formControlName="amount">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="invoiceForm.invalid">Envoyer</button>
+    </form>
+
+    <form [formGroup]="softPayForm" (ngSubmit)="submitSoftPayOM()" class="w-50 mt-5">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nom & Prénom</label>
+            <input type="text" class="form-control" id="amount" formControlName="customer_name">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="customer_email">
+        </div>
+        <div class="mb-3">
+            <label for="tel" class="form-label">Téléphone</label>
+            <input type="tel" class="form-control" id="tel" formControlName="phone_number">
+        </div>
+        <div class="mb-3">
+            <label for="code" class="form-label">Code d'autorisation</label>
+            <input type="text" class="form-control" id="code" formControlName="authorization_code">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="softPayForm.invalid">Envoyer</button>
+    </form>
+</div>

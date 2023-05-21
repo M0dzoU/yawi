@@ -1,0 +1,26 @@
+.table {
+    font-size: 14px; /* Adjust the font size as needed */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+  
+  .table thead th {
+    background-color: #056db6; /* Set the background color of the table header */
+    border-bottom: none; /* Remove the bottom border of the table header */
+    color: #fff;
+  }
+  
+  .table tbody td {
+    vertical-align: middle; /* Center the content vertically within table cells */
+  }
+  
+  .table-rounded {
+    border-collapse: separate;
+  }
+  
+  .table-rounded thead th:first-child {
+    border-top-left-radius: 0.25rem;
+  }
+  
+  .table-rounded thead th:last-child {
+    border-top-right-radius: 0.25rem;
+  }

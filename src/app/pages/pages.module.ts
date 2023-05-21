@@ -7,14 +7,14 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TransactionsComponent } from './transactions/transactions.component';
 import { NgxOtpInputModule } from 'ngx-otp-input';
+import { TestApiComponent } from './test-api/test-api.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    TransactionsComponent
+    TestApiComponent
   ],
   imports: [
     CommonModule,
