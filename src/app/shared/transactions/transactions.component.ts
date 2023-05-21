@@ -13,12 +13,26 @@ export class TransactionsComponent implements OnInit {
   page: number = 1;
   count: number = 0;
   tableSize: number = 5;
+  selectedItem: any;
+  openModal = false;
 
   constructor(private transactionService: TransactionsService) {
     this.telephone = localStorage.getItem('Telephone');
   }
   ngOnInit(): void {
     this.getListTransaction(this.telephone);
+  }
+
+  selectedDetails(item: any) {
+    this.selectedItem = item;
+  }
+
+  openModalDetails() {
+    this.openModal = true;
+  }
+
+  closeModal() {
+    this.openModal = false;
   }
 
   showSwal(icon?: any, title?: string,) {
@@ -35,7 +49,6 @@ export class TransactionsComponent implements OnInit {
     this.transactionService.getLastOfTransaction(phoneNumber).subscribe({
       next: (response) => {
         this.transactions = response["hydra:member"];
-        console.log(this.transactions);
       },
       complete: () => {
       },

@@ -15,24 +15,25 @@
         <li class="nav-item" [ngClass]="{'active':currentSection === 'home'}">
           <a href="javascript: void(0);" [ngxScrollTo]="'#home'" class="nav-link">Acceuil</a>
         </li>
-        <li class="nav-item" *ngIf="!isLogged && !isAuthenticated && token != null" [ngClass]="{'active':currentSection === 'transactions'}">
+        <li class="nav-item" *ngIf="!isLogged && !isAuthenticated && token != null"
+          [ngClass]="{'active':currentSection === 'transactions'}">
           <a [ngxScrollTo]="'#transactions'" class="nav-link" [ngxScrollToOffset]="5">Transactions</a>
         </li>
         <li class="nav-item" [ngClass]="{'active':currentSection === 'services'}">
-          <a [ngxScrollTo]="'#services'" class="nav-link" [ngxScrollToOffset]="5">Services</a>
+          <a [ngxScrollTo]="'#services'" class="nav-link" [ngxScrollToOffset]="5">Pourquoi nous ?</a>
         </li>
         <li class="nav-item" [ngClass]="{'active':currentSection === 'contact'}">
           <a [ngxScrollTo]="'#contact'" class="nav-link" [ngxScrollToOffset]="5">Contact</a>
         </li>
-        <li class="nav-item" [ngClass]="{'active':currentSection === 'faq'}">
+        <!-- <li class="nav-item" [ngClass]="{'active':currentSection === 'faq'}">
           <a [ngxScrollTo]="'#faq'" class="nav-link" [ngxScrollToOffset]="5">FaQ</a>
-        </li>
+        </li> -->
       </ul>
       <ul class="navbar-nav navbar-center">
-        <li class="nav-item">
+        <li class="nav-item my-1">
           <button class="signIn-btn me-2" (click)="loginModal(content)" *ngIf="token == null">Connexion</button>
         </li>
-        <li class="nav-item">
+        <li class="nav-item my-1">
           <button class="signUp-btn" (click)="registerModal(registercontent)" *ngIf="token == null">Inscription</button>
         </li>
         <li class="nav-item" *ngIf="!isLogged && token != null">
@@ -65,7 +66,8 @@
           </a>
 
           <!-- Google Play button -->
-          <a href="#" target="_blank" class="market-btn google-btn" role="button">
+          <a href="https://play.google.com/store/apps/details?id=com.cokservices.exchanger" target="_blank"
+            class="market-btn google-btn" role="button">
             <span class="market-button-subtitle">Téléchager sur</span>
             <span class="market-button-title">Google Play</span>
           </a>
@@ -75,120 +77,130 @@
             <h5 class="form-title mb-4 text-center">Transaction</h5>
             <div class="form-border w-25 mx-auto mb-4"></div>
             <form class="registration-form" [formGroup]="transactionForm" (ngSubmit)="createTransaction()">
-              <div class="area-form row mb-3">
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <div class="dropdown-center">
-                      <button class="form-control dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <span *ngIf="!selectedFirstImage">Select an image</span>
-                        <img [src]="selectedFirstImage" [alt]="selectedFirstImageAlt" *ngIf="selectedFirstImage"
-                          width="24" height="24" class="logo-icon">
-                        {{ selectedFirstImageAlt }} </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li class="dropdown-item" *ngFor="let option of imageOption"
-                          (click)="onSelectFirstImage(option)">
-                          <img [src]="option.imagePath" [alt]="option.altText" width="24" height="24" class="logo-icon">
-                          {{ option.altText
-                          }}
-                        </li>
-                      </ul>
+              <fieldset class="p-2">
+                <legend class="w-auto">Compte envoyeur</legend>
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                      <div class="dropdown-center">
+                        <button class="form-control dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <span *ngIf="!selectedFirstImage">Select an image</span>
+                          <img [src]="selectedFirstImage" [alt]="selectedFirstImageAlt" *ngIf="selectedFirstImage"
+                            width="24" height="24" class="logo-icon">
+                          {{ selectedFirstImageAlt }} </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <li class="dropdown-item" *ngFor="let option of imageOption"
+                            (click)="onSelectFirstImage(option)">
+                            <img [src]="option.imagePath" [alt]="option.altText" width="24" height="24"
+                              class="logo-icon">
+                            {{ option.altText
+                            }}
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
+                  <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon-image">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+                          </svg>
+
+                        </span>
+                        <input type="number" class="form-control" placeholder="Montant" aria-label="Username"
+                          aria-describedby="basic-addon1" formControlName="montant"
+                          (change)="handleAmountChange($event)">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-2" *ngIf="selectedFirstImageAlt == 'Orange Money'">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            <rect height="11" rx="2" ry="2" width="18" x="3" y="11" />
+                            <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                          </svg>
+
+                        </span>
+                        <input type="text" class="form-control" placeholder="Code d'autorisation" aria-label="Username"
+                          formControlName="code_om" aria-describedby="basic-addon1">
+                      </div>
+                      <div class="form-text text-muted">Générer un code de paiement Orange Money en suivant le code USSD
+                        suivant:
+                        #144#391*Votre_Code_Secret#</div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-2">
                     <div class="input-group">
-                      <span class="input-group-text" id="basic-addon1">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                          stroke="currentColor" class="icon-image">
-                          <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
-                        </svg>
-
-                      </span>
-                      <input type="number" class="form-control" placeholder="Montant" aria-label="Username"
-                        aria-describedby="basic-addon1" formControlName="montant" (change)="handleAmountChange($event)">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-12 mb-2" *ngIf="selectedFirstImageAlt == 'Orange Money'">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-text" id="basic-addon1">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                          class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
-                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                          <rect height="11" rx="2" ry="2" width="18" x="3" y="11" />
-                          <path d="M7 11V7a5 5 0 0 1 9.9-1" />
-                        </svg>
-
-                      </span>
-                      <input type="text" class="form-control" placeholder="Code d'autorisation" aria-label="Username"
-                        formControlName="code_om" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="form-text text-muted">Générer un code de paiement Orange Money en suivant le code USSD
-                      suivant:
-                      #144#391*Votre_Code_Secret#</div>
-                  </div>
-                </div>
-                <div class="col-md-12 mb-2">
-                  <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1"> <svg xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24" class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                        <rect height="20" rx="2" ry="2" width="14" x="5" y="2" />
-                        <line x1="12" x2="12.01" y1="18" y2="18" />
-                      </svg>
-                    </span>
-                    <input type="tel" class="form-control" placeholder="Numéro débiteur" aria-label="Username"
-                      formControlName="comptedebit" aria-describedby="basic-addon1">
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="area-form row mb-3">
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <div class="dropdown-center">
-                      <button class="form-control dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <span *ngIf="!selectedSecondImage">Select an image</span>
-                        <img [src]="selectedSecondImage" [alt]="selectedSecondImageAlt" *ngIf="selectedSecondImage"
-                          width="24" height="24" class="logo-icon">
-                        {{ selectedSecondImageAlt }} </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li class="dropdown-item" *ngFor="let option of imageOption"
-                          (click)="onSelectSecondImage(option)">
-                          <img [src]="option.imagePath" [alt]="option.altText" width="24" height="24" class="logo-icon">
-                          {{ option.altText
-                          }}
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-text" id="basic-addon1">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                          class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
+                      <span class="input-group-text" id="basic-addon1"> <svg xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24" class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
                           stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                           <rect height="20" rx="2" ry="2" width="14" x="5" y="2" />
                           <line x1="12" x2="12.01" y1="18" y2="18" />
                         </svg>
                       </span>
-                      <input type="tel" class="form-control" placeholder="Bénéficiaire" aria-label="Username"
-                        formControlName="destinataire" aria-describedby="basic-addon1">
+                      <input type="tel" class="form-control" placeholder="Numéro débiteur" aria-label="Username"
+                        formControlName="comptedebit" aria-describedby="basic-addon1">
                     </div>
                   </div>
                 </div>
-              </div>
-              <button type="submit" class="valid-btn text-uppercase w-100">Valider</button>
+              </fieldset>
+
+              <fieldset class="p-2">
+                <legend class="w-auto">Compte destinataire</legend>
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                      <div class="dropdown-center">
+                        <button class="form-control dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <span *ngIf="!selectedSecondImage">Select an image</span>
+                          <img [src]="selectedSecondImage" [alt]="selectedSecondImageAlt" *ngIf="selectedSecondImage"
+                            width="24" height="24" class="logo-icon">
+                          {{ selectedSecondImageAlt }} </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <li class="dropdown-item" *ngFor="let option of imageOption"
+                            (click)="onSelectSecondImage(option)">
+                            <img [src]="option.imagePath" [alt]="option.altText" width="24" height="24"
+                              class="logo-icon">
+                            {{ option.altText
+                            }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            <rect height="20" rx="2" ry="2" width="14" x="5" y="2" />
+                            <line x1="12" x2="12.01" y1="18" y2="18" />
+                          </svg>
+                        </span>
+                        <input type="tel" class="form-control" placeholder="Bénéficiaire" aria-label="Username"
+                          formControlName="destinataire" aria-describedby="basic-addon1">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <button type="submit" class="valid-btn text-uppercase w-100" [disabled]="transactionForm.invalid"
+                [class.disabled-button]="transactionForm.invalid">Valider</button>
             </form>
             <app-loader *ngIf="isLoading"></app-loader>
             <div class="calculation">
@@ -228,7 +240,7 @@
                       selectedSecondImageAlt }}</span>
                   </div>
                 </div>
-                <div class="single-area d-flex align-items-center">
+                <!-- <div class="single-area d-flex align-items-center">
                   <div class="left-area">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor">
@@ -238,7 +250,7 @@
                     <span class="mdr">Montant Opération</span>
                   </div>
                   <div class="right-area" id="afterMontant"><span class="mdr"> {{ amount }} FCFA</span></div>
-                </div>
+                </div> -->
                 <div class="single-area d-flex align-items-center">
                   <div class="left-area">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -274,7 +286,7 @@
                     <span class="mdr" id="receiveAmount">{{amount }} FCFA</span>
                   </div>
                 </div>
-                <div class="single-area d-flex align-items-center">
+                <!-- <div class="single-area d-flex align-items-center">
                   <div class="left-area">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor">
@@ -286,7 +298,7 @@
                   <div class="right-area">
                     <span class="mdr" id="durationTransaction">Instantanée</span>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -300,7 +312,7 @@
   <app-transactions *ngIf="!isLogged && !isAuthenticated && token != null"></app-transactions>
   <app-services></app-services>
   <app-contact></app-contact>
-  <app-accordion></app-accordion>
+  <!-- <app-accordion></app-accordion> -->
   <app-footer></app-footer>
 </div>
 

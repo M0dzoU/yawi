@@ -24,3 +24,33 @@
   .table-rounded thead th:last-child {
     border-top-right-radius: 0.25rem;
   }
+
+  .modal.fade.show {
+    display: block;
+  }
+  
+  .modal.fade.show .modal-dialog {
+    transform: translate(0);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .modal.fade.show .modal-content {
+    opacity: 1;
+  }
+  
+  .modal.fade.show .modal-header,
+  .modal.fade.show .modal-footer {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+  
+  .modal-backdrop {
+    background-color: rgba(0,0,0,.4); /* Adjust the opacity and color as desired */
+  }
+  
+  .modal.fade.show {
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+  }
+  

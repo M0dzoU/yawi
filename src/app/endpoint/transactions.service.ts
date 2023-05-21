@@ -71,6 +71,11 @@ export class TransactionsService {
     return this.http.get(API_URL, { headers: this.headersYawi }).pipe(catchError(this.error));
   }
 
+  getListOfTransaction(id: any): Observable<any> {
+    let API_URL = `${this.apiUrlYawi}transactions/${id}`;
+    return this.http.get(API_URL, { headers: this.headersYawi }).pipe(catchError(this.error));
+  }
+
   // Handle Errors
   error(error: HttpErrorResponse) {
     let errorMessage = '';

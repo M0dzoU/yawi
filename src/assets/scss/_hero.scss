@@ -172,14 +172,16 @@
         padding: 40px;
 
         .registration-form {
-            .area-form {
+            fieldset {
                 background: rgba($secondary, 0.055);
                 border-radius: 5px;
-                display: flex;
-                align-items: center;
                 box-shadow: $box-shadow;
-                justify-content: space-between;
-                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            legend {
+                font-family: "Jost", sans-serif;
+                font-size: 18px;
             }
 
             label {
@@ -228,7 +230,8 @@
                     height: 24px;
                     width: 24px;
                     z-index: 1;
-                    background-color: #056db61f;;
+                    background-color: #056db61f;
+                    ;
                     display: flex;
                     align-items: center;
                     justify-content: center;

@@ -278,7 +278,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.isLogged = true;
         this.isLoading = false;
-        this.showSwal('success', 'Connexion réussie.');
         this.token = localStorage.setItem('Token', response.token);
         this.dismissLoginModal();
         this.getDetailsOfUsers();
@@ -359,6 +358,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   createTransaction() {
     this.isLoading = true;
+    if (!this.idUser) {
+      // User ID is null, handle the error here
+      this.isLoading = false;
+      this.showSwal('info', 'Il faut que vous vous connectiez à votre pour transacter.')
+      return;
+    }
+    const amount = this.transactionForm.get('montant')?.value;
+    // Check if the amount is less than 200
+    if (amount < 200) {
+      this.isLoading = false;
+      this.showSwal('info', 'Le montant doit être supérieur ou égal à 500 FCFA.');
+      this.transactionForm.get('montant')?.reset();
+      return;
+    }
     const currentDate = new Date();
     this.formattedDate = this.datePipe.transform(currentDate, 'yyyy-MM-ddTHH:mm:ss.SSSZ');
     let transactions;
@@ -430,7 +443,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       //   this.isLoading = false;
       //   this.showSwal('error', 'Les transfert venant de free sont momentanément indisponible. Mais vous pouvez utiliser les autres opérateurs.');
       // 
-    }else if (this.selectedFirstImageAlt == "Wave" && this.selectedSecondImageAlt == "Free Money") {
+    } else if (this.selectedFirstImageAlt == "Wave" && this.selectedSecondImageAlt == "Free Money") {
       transactions = {
         date: this.formattedDate,
         montant: `${this.transactionForm.value.montant}`,
@@ -476,7 +489,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                         setTimeout(() => {
                           this.submitInvoiceTransaction();
                           this.transactionForm.reset();
-                          this.router.navigateByUrl('/transactions');
                         }, 4000);
                         this.fees = 0;
                         this.amount_total = 0;
@@ -524,7 +536,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                         setTimeout(() => {
                           this.submitInvoiceTransaction();
                           this.transactionForm.reset();
-                          this.router.navigateByUrl('/transactions');
                         }, 4000);
                         this.fees = 0;
                         this.amount_total = 0;
@@ -572,7 +583,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                         setTimeout(() => {
                           this.submitInvoiceTransaction();
                           this.transactionForm.reset();
-                          this.router.navigateByUrl('/transactions');
                         }, 4000);
                         this.fees = 0;
                         this.amount_total = 0;
@@ -620,7 +630,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                         setTimeout(() => {
                           this.submitInvoiceTransaction();
                           this.transactionForm.reset();
-                          this.router.navigateByUrl('/transactions');
                         }, 4000);
                         this.fees = 0;
                         this.amount_total = 0;
@@ -895,9 +904,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.transactionService.submitInvoice(donnee).subscribe({
       next: (response) => {
         if (response.response_code == '00') {
-          this.showSwal('success', response.response_text)
+          Swal.fire({
+            title: 'Transaction éffectuée avec succès.',
+            icon: 'success',
+            showConfirmButton: true,
+            confirmButtonColor: '#056db6',
+            confirmButtonText: 'Ok'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          })
         } else {
-          this.showSwal('error', 'Le remboursement n\'a totalement pas abouti.')
+          this.showSwal('error', 'Le remboursement n\'a pas totalement abouti.')
         }
       },
       complete: () => {

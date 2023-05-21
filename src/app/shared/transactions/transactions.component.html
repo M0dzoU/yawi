@@ -17,7 +17,7 @@
             <table class="table table-striped table-hover table-rounded">
               <thead>
                 <tr class="text-center text-uppercase">
-                  <th class="p-3">Référence</th>
+                  <th class="p-3">Id</th>
                   <th class="p-3">Date</th>
                   <th class="p-3">Envoyeur</th>
                   <th class="p-3">Destinataire</th>
@@ -27,25 +27,21 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of transactions | paginate
-                : {
-                    itemsPerPage: tableSize,
-                    currentPage: page,
-                    totalItems: count
-                  };
-            let i = index">
-                  <td class="text-center">{{ item.reference }}</td>
+                <tr
+                  *ngFor="let item of transactions | paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+                  <td class="text-center">{{ item.id }}</td>
                   <td class="text-center">{{ item.date | date: 'short' }}</td>
                   <td class="text-center">{{ item.comptedebit }}</td>
                   <td class="text-center">{{ item.destinataire }}</td>
                   <td class="text-center">{{ item.montant }}</td>
                   <td class="text-center">
-                    <span class="badge text-bg-warning text-warning-emphasis d-inline p-2 font-size-12" *ngIf="item.statut == 'En attente'">{{ item.statut }}</span>
-                    <span class="badge text-bg-success text-success-emphasis d-inline p-2 font-size-12" *ngIf="item.statut == 'Réussi'">{{ item.statut }}</span>
+                    <span class="badge text-bg-warning text-warning-emphasis d-inline p-2 font-size-12"
+                      *ngIf="item.statut == 'En attente'">{{ item.statut }}</span>
+                    <span class="badge text-bg-success text-success-emphasis d-inline p-2 font-size-12"
+                      *ngIf="item.statut == 'Réussi'">{{ item.statut }}</span>
                   </td>
-
                   <td class="text-center">
-                    <button class="btn btn-soft me-2">
+                    <button class="btn btn-soft me-2" (click)="selectedDetails(item); openModalDetails()">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
                         class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2">
@@ -57,12 +53,29 @@
                 </tr>
               </tbody>
             </table>
+
+            <!-- Modal -->
+            <div class="modal fade" [class.show]="openModal" tabindex="-1" role="dialog"
+              aria-labelledby="itemModalLabel" aria-hidden="true" data-bs-backdrop="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="itemModalLabel">Détails transactions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>ID: {{ selectedItem?.id }}</p>
+                    <p>Date: {{ selectedItem?.date | date: 'short' }}</p>
+                    <p>Envoyeur: {{ selectedItem?.comptedebit }}</p>
+                    <p>Destinataire: {{ selectedItem?.destinataire }}</p>
+                    <p>Montant: {{ selectedItem?.montant }}</p>
+                    <p>Status: {{ selectedItem?.statut }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="d-flex justify-content-center">
-              <pagination-controls
-                previousLabel=""
-                nextLabel=""
-                (pageChange)="onTableDataChange($event)"
-              >
+              <pagination-controls previousLabel="" nextLabel="" (pageChange)="onTableDataChange($event)">
               </pagination-controls>
             </div>
           </div>
