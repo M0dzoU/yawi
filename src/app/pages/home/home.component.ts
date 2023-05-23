@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
 import { Subscription, interval, switchMap, takeWhile } from 'rxjs';
@@ -40,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   modalRefLogin!: NgbModalRef;
   modalRefRegister!: NgbModalRef;
   modalRefSecret!: NgbModalRef;
-
+  allDetailsUser: Array<any> = [];
   isLoading: boolean = false;
   showModalAuth: boolean = false;
   token_invoice: any;
@@ -80,7 +79,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private usersService: UsersService,
-    private router: Router,
     private datePipe: DatePipe,
     private transactionService: TransactionsService,
   ) {
@@ -94,7 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.setDefaultFirstImage();
     this.setDefaultSecondImage();
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.maxLength(9)]],
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
 
@@ -104,15 +102,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       nom: ['', [Validators.required]],
       prenom: ['', [Validators.required]],
       pays: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
+      telephone: ['', [Validators.required, Validators.maxLength(9)]],
       secret: ['', [Validators.required, Validators.maxLength(4)]],
     });
 
     this.transactionForm = this.formBuilder.group({
       montant: [this.amount, [Validators.required]],
-      destinataire: ['', [Validators.required]],
+      destinataire: ['', [Validators.required, Validators.maxLength(9)]],
       code_om: [''],
-      comptedebit: ['', [Validators.required]],
+      comptedebit: ['', [Validators.required, Validators.maxLength(9)]],
     });
   }
 
@@ -219,19 +217,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Secret modal
-   */
-  secretModal(secret: any) {
-    const modalOptions: NgbModalOptions = {
-      size: 'sm',
-      centered: true,
-      backdrop: 'static',
-      keyboard: false
-    };
-    this.modalRefSecret = this.modalService.open(secret, modalOptions);
-  }
-
-  /**
    * Register modal
    * @param registercontent content
    */
@@ -283,7 +268,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.getDetailsOfUsers();
         this.loginForm.reset();
         const modalOptions: NgbModalOptions = {
-          size: 'sm',
+          size: 'md',
+          backdrop: 'static',
+          keyboard: false,
           centered: true
         };
         this.modalRefSecret = this.modalService.open(secret, modalOptions);
@@ -309,7 +296,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     }
-
     const data = {
       email: '221' + this.registerForm.value.telephone,
       roles: [this.registerForm.value.roles],
@@ -331,7 +317,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         // Error occurred, handle the error here
-        this.showSwal('error', 'Une erreur est survenue.')
+        this.showSwal('error', 'Ce numéro a déjà un compte.')
       }
     });
   }
@@ -351,7 +337,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         // Error occurred, handle the error here
-        this.showSwal('error', 'Une erreur est survenue. Vérifier vos crédentiale')
+        this.showSwal('error', 'Une erreur est survenue. Vérifier vos identifiants.')
       }
     });
   }
@@ -474,7 +460,6 @@ export class HomeComponent implements OnInit, OnDestroy {
               next: (response) => {
                 this.isLoading = false;
                 if (response.success == true) {
-                  this.showSwal('success', response.message);
                   window.open(response.url, '_system');
                   this.subscription = interval(4000) // Execute every 4 seconds
                     .pipe(
@@ -521,7 +506,6 @@ export class HomeComponent implements OnInit, OnDestroy {
               next: (response) => {
                 this.isLoading = false;
                 if (response.success == true) {
-                  this.showSwal('success', response.message);
                   window.open(response.url, '_blank');
                   this.subscription = interval(4000) // Execute every 4 seconds
                     .pipe(
@@ -905,7 +889,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: (response) => {
         if (response.response_code == '00') {
           Swal.fire({
-            title: 'Transaction éffectuée avec succès.',
+            title: 'La transaction a été éffectuée avec succès.',
             icon: 'success',
             showConfirmButton: true,
             confirmButtonColor: '#056db6',

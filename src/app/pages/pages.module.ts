@@ -8,14 +8,11 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxOtpInputModule } from 'ngx-otp-input';
-import { TestApiComponent } from './test-api/test-api.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    TestApiComponent
-  ],
+    HomeComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

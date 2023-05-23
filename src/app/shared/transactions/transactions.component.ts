@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class TransactionsComponent implements OnInit {
   telephone: any = '';
-  transactions: any;
+  transactions: Array<any> = [];
   page: number = 1;
   count: number = 0;
   tableSize: number = 5;
@@ -54,7 +54,8 @@ export class TransactionsComponent implements OnInit {
       },
       error: (error) => {
         // Error occurred, handle the error here
-        this.showSwal('error', 'Une erreur est survenue. Réessayer ultérieurement.')
+        this.showSwal('error', 'Une erreur est survenue. Réessayer ultérieurement.');
+        this.transactions = [];
       }
     });
   }
