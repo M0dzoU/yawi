@@ -53,11 +53,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   amount: any;
   idTransaction: any;
   transactionForm!: FormGroup;
-  selectedFirstImage: string = ''; // Stores the selected image path
+  selectedFirstImage: string = '';
   selectedFirstImageAlt: string = '';
 
-  selectedSecondImage: string = ''; // Stores the selected image path
+  selectedSecondImage: string = '';
   selectedSecondImageAlt: string = '';
+
+  selectedCountryImg: string = ''; // Stores the selected image path
+  selectedCountryAlt: string = '';
   imageOption: ImageOption[] = [
     {
       altText: 'Wave',
@@ -70,6 +73,25 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       altText: 'Free Money',
       imagePath: '../../../assets/images/free.png'
+    }
+  ];
+
+  countryImg: ImageOption[] = [
+    {
+      altText: 'Sénégal',
+      imagePath: '../../../assets/images/senegal.png'
+    },
+    {
+      altText: 'Côte d\'ivoire',
+      imagePath: '../../../assets/images/cote-divoire.png'
+    },
+    {
+      altText: 'Bénin',
+      imagePath: '../../../assets/images/benin.webp'
+    },
+    {
+      altText: 'Togo',
+      imagePath: '../../../assets/images/togo.svg'
     }
   ];
   private subscription!: Subscription;
@@ -88,9 +110,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.submitSoftPayWave();
     this.setDefaultFirstImage();
     this.setDefaultSecondImage();
+    this.setDefaultCountryImage();
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.maxLength(9)]],
       password: ['', [Validators.required, Validators.minLength(4)]]
@@ -101,7 +123,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       plainPassword: ['', [Validators.required]],
       nom: ['', [Validators.required]],
       prenom: ['', [Validators.required]],
-      pays: ['', [Validators.required]],
       telephone: ['', [Validators.required, Validators.maxLength(9)]],
       secret: ['', [Validators.required, Validators.maxLength(4)]],
     });
@@ -115,17 +136,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   setDefaultFirstImage(): void {
-    // Your condition or logic to determine the default image
-    // Here's an example of setting the first image as the default
     if (this.imageOption.length > 0) {
       this.selectedFirstImage = this.imageOption[0].imagePath;
       this.selectedFirstImageAlt = this.imageOption[0].altText;
     }
   }
 
+  setDefaultCountryImage(): void {
+    if (this.countryImg.length > 0) {
+      this.selectedCountryImg = this.countryImg[0].imagePath;
+      this.selectedCountryAlt = this.countryImg[0].altText;
+    }
+  }
+
   setDefaultSecondImage(): void {
-    // Your condition or logic to determine the default image
-    // Here's an example of setting the first image as the default
     if (this.imageOption.length > 0) {
       this.selectedSecondImage = this.imageOption[1].imagePath;
       this.selectedSecondImageAlt = this.imageOption[1].altText;
@@ -151,6 +175,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   onSelectSecondImage(option: ImageOption): void {
     this.selectedSecondImage = option.imagePath; // Update the selected image path
     this.selectedSecondImageAlt = option.altText;
+  }
+
+  onSelectCountryImage(option: ImageOption): void {
+    this.selectedCountryImg = option.imagePath; // Update the selected image path
+    this.selectedCountryAlt = option.altText;
   }
 
   handleAmountChange(amount: any) {
@@ -239,11 +268,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   get f() { return this.loginForm.controls; }
 
-  showSwal(icon?: any, title?: string,) {
+  showSwal(icon?: any, text?: string,) {
     Swal.fire({
       position: 'center',
       icon,
-      title,
+      title: 'Message!',
+      text,
       confirmButtonColor: '#056db6',
       showConfirmButton: true,
     });
@@ -296,28 +326,74 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     }
-    const data = {
-      email: '221' + this.registerForm.value.telephone,
-      roles: [this.registerForm.value.roles],
-      plainPassword: this.registerForm.value.plainPassword,
-      nom: this.registerForm.value.prenom + ' ' + this.registerForm.value.nom,
-      pays: this.registerForm.value.pays,
-      telephone: '221' + this.registerForm.value.telephone,
-      secret: this.registerForm.value.secret
-    };
+    this.isLoading = true;
+    let data;
+
+    switch (this.selectedCountryAlt) {
+      case 'Sénégal':
+        data = {
+          email: '221' + this.registerForm.value.telephone,
+          roles: [this.registerForm.value.roles],
+          plainPassword: this.registerForm.value.plainPassword,
+          nom: this.registerForm.value.prenom + ' ' + this.registerForm.value.nom,
+          pays: 'senegal',
+          telephone: '221' + this.registerForm.value.telephone,
+          secret: this.registerForm.value.secret
+        };
+        break;
+      case 'Bénin':
+        data = {
+          email: '229' + this.registerForm.value.telephone,
+          roles: [this.registerForm.value.roles],
+          plainPassword: this.registerForm.value.plainPassword,
+          nom: this.registerForm.value.prenom + ' ' + this.registerForm.value.nom,
+          pays: 'benin',
+          telephone: '229' + this.registerForm.value.telephone,
+          secret: this.registerForm.value.secret
+        };
+        break;
+      case 'Togo':
+        data = {
+          email: '228' + this.registerForm.value.telephone,
+          roles: [this.registerForm.value.roles],
+          plainPassword: this.registerForm.value.plainPassword,
+          nom: this.registerForm.value.prenom + ' ' + this.registerForm.value.nom,
+          pays: 'togo',
+          telephone: '228' + this.registerForm.value.telephone,
+          secret: this.registerForm.value.secret
+        };
+        break;
+      case 'Côte d\'ivoire':
+        data = {
+          email: '225' + this.registerForm.value.telephone,
+          roles: [this.registerForm.value.roles],
+          plainPassword: this.registerForm.value.plainPassword,
+          nom: this.registerForm.value.prenom + ' ' + this.registerForm.value.nom,
+          pays: 'cotedivoir',
+          telephone: '225' + this.registerForm.value.telephone,
+          secret: this.registerForm.value.secret
+        };
+        break;
+      default:
+        this.showSwal('error', 'Cet pays n\'est pas en base.')
+        break;
+    }
 
     this.usersService.createNewUser(data).subscribe({
       next: (response) => {
         this.showSwal('success', 'Inscription réussie.');
         this.registerForm.reset();
         this.dismissRegisterModal();
+        this.isLoading = false;
       },
       complete: () => {
         // Called when the request is completed (optional)
       },
       error: (error) => {
         // Error occurred, handle the error here
-        this.showSwal('error', 'Ce numéro a déjà un compte.')
+        this.showSwal('error', 'Ce numéro a déjà un compte.');
+
+        this.isLoading = false;
       }
     });
   }
