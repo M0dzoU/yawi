@@ -1,0 +1,508 @@
+<!--Navbar Start-->
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark" (window:scroll)="windowScroll()"
+  id="navbar">
+  <div class="container">
+    <!-- LOGO -->
+    <a class="navbar-brand logo" href="/">
+      <img src="assets/images/logo.jpeg" alt="" class="logo-dark" height="32" /> <span class="logo-font">YAWI</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMenu()">
+      <i class="mdi mdi-menu"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mx-auto navbar-center" id="mySidenav">
+        <li class="nav-item" [ngClass]="{'active':currentSection === 'home'}">
+          <a href="javascript: void(0);" [ngxScrollTo]="'#home'" class="nav-link">Acceuil</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLogged && !isAuthenticated && token != null"
+          [ngClass]="{'active':currentSection === 'transactions'}">
+          <a [ngxScrollTo]="'#transactions'" class="nav-link" [ngxScrollToOffset]="5">Transactions</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active':currentSection === 'services'}">
+          <a [ngxScrollTo]="'#services'" class="nav-link" [ngxScrollToOffset]="5">Pourquoi nous ?</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active':currentSection === 'contact'}">
+          <a [ngxScrollTo]="'#contact'" class="nav-link" [ngxScrollToOffset]="5">Contact</a>
+        </li>
+        <!-- <li class="nav-item" [ngClass]="{'active':currentSection === 'faq'}">
+          <a [ngxScrollTo]="'#faq'" class="nav-link" [ngxScrollToOffset]="5">FaQ</a>
+        </li> -->
+      </ul>
+      <ul class="navbar-nav navbar-center">
+        <li class="nav-item my-1">
+          <button class="signIn-btn me-2" (click)="loginModal(content)" *ngIf="token == null">Connexion</button>
+        </li>
+        <li class="nav-item my-1">
+          <button class="signUp-btn" (click)="registerModal(registercontent)" *ngIf="token == null">Inscription</button>
+        </li>
+        <li class="nav-item" *ngIf="!isLogged && token != null">
+          <button class="login-btn" (click)="logout()">Deconnexion</button>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link cursor-pointer" (click)="registerModal(registercontent)">Inscription</a>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->
+<div appScrollspy [spiedTags]="['SECTION']" (sectionChange)="onSectionChange($event)">
+
+  <!-- Hero Start -->
+  <section class="hero-4-bg" style="background-image: url(assets/images/hero-4-bg.jpg)" id="home">
+    <div class="container">
+      <div class="row align-items-start justify-content-center">
+        <div class="col-xl-5 col-lg-7">
+          <h2 class="hero-4-title mb-4 text-shadow line-height-1_4">Transférez votre argent d'un compte à un autre avec,
+            <span class="text-bottom-border">Yawi</span></h2>
+          <p class="text-muted">Envoyez de l’argent vers n’importe quel compte instantanément en toute sécurité sans
+            vous déplacer.</p>
+
+          <!-- Google Play button -->
+          <a href="https://play.google.com/store/apps/details?id=com.cokservices.exchanger" target="_blank"
+            class="market-btn google-btn me-2" role="button">
+            <span class="market-button-subtitle">Téléchager sur</span>
+            <span class="market-button-title">Google Play</span>
+          </a>
+
+          <!-- App Store button -->
+          <a class="market-btn apple-btn" role="button" ngbPopover="Pas encore disponible sur les appareils IoS."
+            popoverTitle="Information" placement="top" container="body" popoverClass="custom-popover"
+            title="Télécharger sur App Store">
+            <span class="market-button-subtitle">Téléchager sur</span>
+            <span class="market-button-title">App Store</span>
+          </a>
+
+        </div>
+        <div class="col-xl-6 offset-xl-1 col-lg-5 col-md-8">
+          <div class="hero-4-registration-form mx-auto rounded bg-white mt-3 mt-lg-0">
+            <h5 class="form-title mb-3 text-center">Transfert</h5>
+            <div class="form-border w-50 mx-auto mb-3"></div>
+            <form class="registration-form" [formGroup]="transactionForm" (ngSubmit)="createTransaction()">
+              <fieldset class="border border-secondary p-2">
+                <legend class="float-none w-auto px-3">Compte débiteur</legend>
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                      <div class="dropdown-center">
+                        <button class="form-control dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <span *ngIf="!selectedFirstImage">Select an image</span>
+                          <img [src]="selectedFirstImage" [alt]="selectedFirstImageAlt" *ngIf="selectedFirstImage"
+                            width="24" height="24" class="logo-icon">
+                          {{ selectedFirstImageAlt }} </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <li class="dropdown-item" *ngFor="let option of imageOption"
+                            (click)="onSelectFirstImage(option)">
+                            <button class="dropdown-item" type="button"><img [src]="option.imagePath"
+                                [alt]="option.altText" width="24" height="24" class="logo-icon">
+                              {{ option.altText
+                              }}</button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon-image">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+                          </svg>
+
+                        </span>
+                        <input type="number" class="form-control" placeholder="Montant" aria-label="Username"
+                          aria-describedby="basic-addon1" formControlName="montant"
+                          (change)="handleAmountChange($event)">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-2" *ngIf="selectedFirstImageAlt == 'Orange Money'">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            <rect height="11" rx="2" ry="2" width="18" x="3" y="11" />
+                            <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                          </svg>
+
+                        </span>
+                        <input [maxlength]="6" type="text" class="form-control" placeholder="Code d'autorisation"
+                          aria-label="Username" formControlName="code_om" aria-describedby="basic-addon1">
+                      </div>
+                      <div class="form-text text-muted">Générer un code de paiement Orange Money en suivant le code USSD
+                        suivant:
+                        #144#391*Votre_Code_Secret#</div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-2">
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon1"> <svg xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24" class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
+                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                          <rect height="20" rx="2" ry="2" width="14" x="5" y="2" />
+                          <line x1="12" x2="12.01" y1="18" y2="18" />
+                        </svg>
+                      </span>
+                      <input [maxlength]="9" type="tel" class="form-control" placeholder="Numéro débiteur"
+                        aria-label="Username" formControlName="comptedebit" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="border border-secondary p-2">
+                <legend class="float-none w-auto px-3">Compte destinataire
+                </legend>
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                      <div class="dropdown-center">
+                        <button class="form-control dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <span *ngIf="!selectedSecondImage">Select an image</span>
+                          <img [src]="selectedSecondImage" [alt]="selectedSecondImageAlt" *ngIf="selectedSecondImage"
+                            width="24" height="24" class="logo-icon">
+                          {{ selectedSecondImageAlt }} </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <li class="dropdown-item" *ngFor="let option of imageOption"
+                            (click)="onSelectSecondImage(option)">
+                            <button class="dropdown-item" type="button"><img [src]="option.imagePath"
+                                [alt]="option.altText" width="24" height="24" class="logo-icon">
+                              {{ option.altText
+                              }}</button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            <rect height="20" rx="2" ry="2" width="14" x="5" y="2" />
+                            <line x1="12" x2="12.01" y1="18" y2="18" />
+                          </svg>
+                        </span>
+                        <input [maxlength]="9" type="tel" class="form-control" placeholder="Bénéficiaire"
+                          aria-label="Username" formControlName="destinataire" aria-describedby="basic-addon1">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <button type="submit" class="valid-btn text-uppercase w-100" [disabled]="transactionForm.invalid"
+                [class.disabled-button]="transactionForm.invalid">Valider</button>
+            </form>
+            <app-loader *ngIf="isLoading"></app-loader>
+            <div class="calculation">
+              <div class="head-area">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="none" viewBox="0 0 24 24"
+                  strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+                </svg>
+                <span class="mdr highlight">Détails de la transaction</span>
+              </div>
+              <div class="calculation-details">
+                <div class="single-area d-flex align-items-center">
+                  <div class="left-area">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                    </svg> <span class="mdr">De</span>
+                  </div>
+                  <div class="right-area">
+                    <span class="mdr" id="from_method"><img [src]="selectedFirstImage" class="logo-operator" alt=""> {{
+                      selectedFirstImageAlt }} </span>
+                  </div>
+                </div>
+                <div class="single-area d-flex align-items-center">
+                  <div class="left-area">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                    </svg>
+                    <span class="mdr">Vers</span>
+                  </div>
+                  <div class="right-area">
+                    <span class="mdr" id="to_method"><img [src]="selectedSecondImage" class="logo-operator" alt=""> {{
+                      selectedSecondImageAlt }}</span>
+                  </div>
+                </div>
+                <div class="single-area d-flex align-items-center">
+                  <div class="left-area">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+
+                    <span class="mdr">Frais</span>
+                  </div>
+                  <div class="right-area" id="fee"><span class="mdr">{{ fees }} FCFA</span></div>
+                </div>
+                <div class="single-area d-flex align-items-center">
+                  <div class="left-area">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" style="rotate: 90deg;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+                    </svg>
+                    <span class="mdr">Total coût</span>
+                  </div>
+                  <div class="right-area" id="total"><span class="mdr">{{ amount_total }} FCFA</span></div>
+                </div>
+                <div class="single-area d-flex align-items-center">
+                  <div class="left-area">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+                    </svg>
+                    <span class="mdr">Montant à recevoir</span>
+                  </div>
+                  <div class="right-area">
+                    <span class="mdr" id="receiveAmount">{{amount }} FCFA</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Hero End -->
+
+  <!-- Sections -->
+  <app-transactions *ngIf="!isLogged && !isAuthenticated && token != null"></app-transactions>
+  <app-services></app-services>
+  <app-contact></app-contact>
+  <app-footer></app-footer>
+</div>
+
+<!-- Login Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <div class="text-center">
+      <h5 class="title mb-4">Bienvenue sur Yawi</h5>
+      <h6 class="text-uppercase text-primary"><b>Connexion</b></h6>
+    </div>
+    <div class="login-form mt-4">
+      <form [formGroup]="loginForm" (ngSubmit)="login(secret)">
+        <div class="form-group">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-text" id="basic-addon1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+                  fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                  <rect height="20" rx="2" ry="2" width="14" x="5" y="2" />
+                  <line x1="12" x2="12.01" y1="18" y2="18" />
+                </svg>
+              </span>
+              <input [maxlength]="9" type="tel" class="form-control" placeholder="Votre numéro" aria-label="Username"
+                aria-describedby="basic-addon1" formControlName="email" required>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <rect height="11" rx="2" ry="2" width="18" x="3" y="11" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </span>
+            <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Username"
+              aria-describedby="basic-addon1" formControlName="password" required>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <button type="submit" class="login-btn" [disabled]="loginForm.invalid && !isLoading"
+            [class.disabled-button]="loginForm.invalid">
+            <span>Se connecter</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" x2="3" y1="12" y2="12" />
+            </svg>
+          </button>
+        </div>
+        <div class="position-relative text-center mt-4">
+          <span class="login-border"></span>
+          <p class="social-login text-muted font-size-17">Ou</p>
+        </div>
+        <div class="text-center">
+          <p class="text-muted mb-0">Nouveau utilisateur ? S'incrire<a class="text-primary"
+              (click)="registerModal(registercontent)" style="cursor: pointer;"> ici</a></p>
+        </div>
+      </form>
+      <app-loader *ngIf="isLoading"></app-loader>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Authentication Modal -->
+<ng-template #secret let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <div class="text-center">
+      <h6 class="text-uppercase text-primary"><b>Authentification</b></h6>
+      <p>Saisissez votre code secret pour vous connecter.</p>
+    </div>
+    <div class="login-form mt-4">
+      <form>
+        <div class="form-group">
+          <div class="d-flex justify-content-center">
+            <ngx-otp-input [config]="otpInputConfig" (otpChange)="handeOtpChange($event)"
+              (fill)="handleFillEvent($event)">
+            </ngx-otp-input>
+          </div>
+        </div>
+      </form>
+      <app-loader *ngIf="isLoading"></app-loader>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Register Modal -->
+<ng-template #registercontent let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <div class="text-center">
+      <h5 class="title mb-4">Bienvenue sur Yawi</h5>
+      <h6 class="text-uppercase text-primary"><b>Inscription</b></h6>
+    </div>
+    <div class="login-form mt-4">
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="row mb-3">
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
+                <input type="text" class="form-control" placeholder="Votre prénom" aria-label="Username"
+                  formControlName="prenom" aria-describedby="basic-addon1">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
+                <input type="text" class="form-control" placeholder="Votre nom" aria-label="Username"
+                  formControlName="nom" aria-describedby="basic-addon1">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <rect height="20" rx="2" ry="2" width="14" x="5" y="2" />
+                    <line x1="12" x2="12.01" y1="18" y2="18" />
+                  </svg>
+                </span>
+                <input [maxlength]="9" type="tel" class="form-control" placeholder="Votre numéro" aria-label="Username"
+                  formControlName="telephone" aria-describedby="basic-addon1">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <rect height="11" rx="2" ry="2" width="18" x="3" y="11" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </span>
+                <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Username"
+                  formControlName="plainPassword" aria-describedby="basic-addon1">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path
+                      d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
+                  </svg>
+                </span>
+                <input [maxlength]="4" type="password" class="form-control" placeholder="Code secret"
+                  aria-label="Username" formControlName="secret" aria-describedby="basic-addon1">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <div class="dropdown-center">
+                <button class="form-control dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <span *ngIf="!selectedCountryImg">Select an image</span>
+                  <img [src]="selectedCountryImg" [alt]="selectedCountryAlt" *ngIf="selectedCountryImg" width="24"
+                    height="24" class="logo-icon">
+                  {{ selectedCountryAlt }} </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li class="dropdown-item" *ngFor="let option of countryImg" (click)="onSelectCountryImage(option)">
+                    <button class="dropdown-item" type="button"><img [src]="option.imagePath" [alt]="option.altText"
+                        width="24" height="24" class="logo-icon">
+                      {{ option.altText
+                      }}</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <button type="submit" class="login-btn" [disabled]="registerForm.invalid"
+            [class.disabled-button]="registerForm.invalid">S'inscrire
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="main-grid-item-icon icon-image"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" x2="3" y1="12" y2="12" />
+            </svg>
+          </button>
+        </div>
+      </form>
+      <app-loader *ngIf="isLoading"></app-loader>
+    </div>
+  </div>
+</ng-template>

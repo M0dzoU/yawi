@@ -1,0 +1,290 @@
+/* 
+// 03.Components
+*/
+.market-btn {
+    display: inline-block;
+    padding: 0.3125rem 0.875rem;
+    padding-left: 2.8125rem;
+    -webkit-transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+    transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+    border: 1px solid #a1a1a1;
+    background-position: center left 0.75rem;
+    background-color: $light;
+    border-radius: 3px;
+    background-size: 1.5rem 1.5rem;
+    background-repeat: no-repeat;
+    text-decoration: none;
+}
+
+.market-btn .market-button-title {
+    display: block;
+    color: #222;
+    font-size: 1rem;
+}
+
+.market-btn .market-button-subtitle {
+    display: block;
+    margin-bottom: -0.25rem;
+    color: #888;
+    font-size: 0.75rem;
+}
+
+.market-btn:hover {
+    background-color: #f7f7f7;
+    text-decoration: underline;
+}
+
+.btn-dark-bg {
+    background-color: #333;
+}
+
+.btn-dark-bg {
+    display: inline-block;
+    padding: 0.3125rem 0.875rem;
+    padding-left: 2.8125rem;
+    -webkit-transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+    transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+    background-position: center left 0.75rem;
+    background-color: darken($dark, 18%);
+    border-radius: 3px;
+    background-size: 1.5rem 1.5rem;
+    background-repeat: no-repeat;
+    text-decoration: none;
+}
+
+.btn-dark-bg .btn-dark-bg-button-title {
+    display: block;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.btn-dark-bg .btn-dark-bg-button-subtitle {
+    display: block;
+    margin-bottom: -0.25rem;
+    color: #e4e4e4;
+    font-size: 0.75rem;
+}
+
+.btn-dark-bg:hover {
+    background-color: #000000;
+    text-decoration: underline;
+}
+
+.apple-btn {
+    background-image: url('../images/apple.svg')
+}
+
+.google-btn {
+    background-image: url('../images/google-play.svg');
+}
+
+.apple-btn-dark {
+    background-image: url('../images/apple-colored.svg')
+}
+
+.google-btn-dark {
+    background-image: url('../images/google-play-colored.svg');
+}
+
+.valid-btn {
+    padding: 10px 30px;
+    font-weight: 600;
+    text-align: center;
+    background: $primary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-btn {
+    padding: 7px 30px;
+    font-weight: 400;
+    text-align: center;
+    background: $primary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-btn {
+    padding: 7px 30px;
+    font-weight: 400;
+    text-align: center;
+    background: $danger;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signIn-btn {
+    padding: 5px 25px;
+    font-weight: 900;
+    text-align: center;
+    background: $primary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signUp-btn {
+    padding: 5px 25px;
+    font-weight: 900;
+    text-align: center;
+    background: $secondary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logOut-btn {
+    padding: 5px 25px;
+    font-weight: 900;
+    text-align: center;
+    background: $secondary;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    border-radius: 3px;
+    padding: 12px 30px;
+    font-size: 15px !important;
+    transition: all 0.5s;
+    font-weight: 700;
+
+    &:focus {
+        box-shadow: none !important;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        transition: all 0.5s;
+    }
+
+    &.btn-lg {
+        padding: 10px 22px !important;
+        font-size: 18px !important;
+    }
+
+    &.btn-sm {
+        padding: 8px 16px !important;
+        font-size: 14px !important;
+    }
+
+    @each $color,
+    $value in $theme-colors {
+        &.btn-#{$color} {
+            background-color: #{$value} !important;
+            border: 1px solid #{$value} !important;
+            color: $white;
+            box-shadow: 0 4px 20px rgba($value, .15);
+
+            &:hover,
+            &:focus,
+            &.focus,
+            &:active,
+            &.active {
+                background-color: #{darken($value, 3%)} !important;
+                border:1px solid #{darken($value, 3%)} !important;
+                box-shadow: 0 3px 10px rgba($value, 0.5);
+                color: $white !important;
+            }
+        }
+
+        &.btn-outline-#{$color} {
+            border: 1px solid #{$value} !important;
+            color: #{$value} !important;
+
+            &:hover,
+            &:focus,
+            &.focus,
+            &:active,
+            &.active {
+                background-color: #{$value} !important;
+                border:1px solid #{$value} !important;
+                box-shadow: 0 3px 10px rgba($value, 0.5);
+                color: $white !important;
+            }
+        }
+
+        &.btn-soft-#{$color} {
+            background-color: rgba($value, 0.18) !important;
+            color: #{$value} !important;
+        }
+    }
+
+    &.btn-light {
+        background-color: $light;
+        border: 1px solid $light;
+        color: $dark !important;
+
+        &:hover,
+        &:focus,
+        &.focus,
+        &:active,
+        &.active {
+            background-color: lighten($light, 3%);
+            border: 1px solid lighten($light, 3%);
+            box-shadow: 0 0 0 2px rgba($light, .08);
+            color: $dark !important;
+        }
+    }
+
+    &.btn-outline-light {
+        border: 1px solid $light;
+        color: $light !important;
+
+        &:hover,
+        &:focus,
+        &.focus,
+        &:active,
+        &.active {
+            background-color: $light;
+            border: 1px solid $light;
+            color: $dark !important;
+        }
+    }
+}
+
+// .badge {
+//     padding: 7px 18px;
+//     font-size: 14px;
+//     box-shadow: 0 2px 1px rgba(90, 79, 220, 0.3);
+// }
+
+
+
+// @each $color,
+// $value in $theme-colors {
+//     .badge {
+//         &.badge-soft-#{$color} {
+//             background: rgba($value, 0.12);
+//             color: #{$value};
+//         }
+//     }
+// }

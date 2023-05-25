@@ -1,0 +1,43 @@
+/* 
+// 11. Footer
+*/
+
+.footer {
+    background: darken($dark, 12%);
+    padding: 70px 0 40px;
+    .footer-social-icon-content {
+        .footer-social-icon{
+            color: rgba($white, 0.5);
+            transition: all 0.5s;
+            &:hover {
+                color: $white;
+            }
+        }
+    }
+    .footer-sub-menu {
+        li {
+            padding: 6px 0;
+            .footer-link {
+                background-color: rgba($primary, 0.5);
+                color: $white;
+                font-size: 15px;
+                transition: all 0.5s;
+                &:hover {
+                    color: rgba($white, 0.6);
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}
+.footer-alt {
+    background: darken($dark, 18%);
+    padding: 20px 0;
+
+}
+@media (max-width: 768px) {
+    .footer-alt .col-lg-6,
+    .footer-alt .col-md-6 {
+      margin-bottom: 15px;
+    }
+  }
