@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, NgbModalRef, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
 import { Subscription, interval, switchMap, takeWhile } from 'rxjs';
 import { LoginService } from 'src/app/endpoint/login.service';
@@ -17,7 +17,7 @@ interface ImageOption {
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  providers: [DatePipe],
+  providers: [DatePipe, NgbPopover],
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   selectedCountryImg: string = ''; // Stores the selected image path
   selectedCountryAlt: string = '';
-  imageOption: ImageOption[] = [
+  fisrtImageOption: ImageOption[] = [
     {
       altText: 'Wave',
       imagePath: '../../../assets/images/wave.png'
@@ -73,6 +73,37 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       altText: 'Free Money',
       imagePath: '../../../assets/images/free.png'
+    },
+    {
+      altText: 'Mtn Money',
+      imagePath: '../../../assets/images/mtn.webp'
+    },
+    {
+      altText: 'Moov Money',
+      imagePath: '../../../assets/images/moov.png'
+    }
+  ];
+
+  secondImageOption: ImageOption[] = [
+    {
+      altText: 'Wave',
+      imagePath: '../../../assets/images/wave.png'
+    },
+    {
+      altText: 'Orange Money',
+      imagePath: '../../../assets/images/om.png'
+    },
+    {
+      altText: 'Free Money',
+      imagePath: '../../../assets/images/free.png'
+    },
+    {
+      altText: 'Mtn Money',
+      imagePath: '../../../assets/images/mtn.webp'
+    },
+    {
+      altText: 'Moov Money',
+      imagePath: '../../../assets/images/moov.png'
     }
   ];
 
@@ -136,9 +167,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   setDefaultFirstImage(): void {
-    if (this.imageOption.length > 0) {
-      this.selectedFirstImage = this.imageOption[0].imagePath;
-      this.selectedFirstImageAlt = this.imageOption[0].altText;
+    if (this.fisrtImageOption.length > 0) {
+      this.selectedFirstImage = this.fisrtImageOption[0].imagePath;
+      this.selectedFirstImageAlt = this.fisrtImageOption[0].altText;
     }
   }
 
@@ -150,25 +181,29 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   setDefaultSecondImage(): void {
-    if (this.imageOption.length > 0) {
-      this.selectedSecondImage = this.imageOption[1].imagePath;
-      this.selectedSecondImageAlt = this.imageOption[1].altText;
+    if (this.secondImageOption.length > 0) {
+      this.selectedSecondImage = this.secondImageOption[1].imagePath;
+      this.selectedSecondImageAlt = this.secondImageOption[1].altText;
     }
   }
 
   onSelectFirstImage(option: ImageOption): void {
     this.selectedFirstImage = option.imagePath; // Update the selected image path
     this.selectedFirstImageAlt = option.altText;
-    if (this.selectedFirstImageAlt === 'Free Money') {
-      this.showSwal('error', '');
+    if (this.selectedFirstImageAlt === 'Free Money' || this.selectedFirstImageAlt === 'Moov Money' || this.selectedFirstImageAlt === 'Mtn Money') {
       Swal.fire({
         title: '<strong>Important</strong>',
         icon: 'info',
         html:
-          '<p>Les transferts venant de Free Money sont momentanément indisponible. Utilisez les autres opérateurs pour vos transferts.</p>',
+          '<p>Les transferts venant de' + ' ' + `${this.selectedFirstImageAlt}` + ' ' + 'sont momentanément indisponible. Utilisez les autres opérateurs pour vos transferts.</p>',
         showCloseButton: true,
         confirmButtonColor: '#056db6',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.setDefaultFirstImage();
+        }
       });
+
     }
   }
 
@@ -423,7 +458,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (!this.idUser) {
       // User ID is null, handle the error here
       this.isLoading = false;
-      this.showSwal('info', 'Il faut que vous vous connectiez à votre pour transacter.')
+      this.showSwal('info', 'Il faut que vous vous connectiez pour transacter.')
       return;
     }
     const amount = this.transactionForm.get('montant')?.value;
@@ -436,88 +471,32 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     const currentDate = new Date();
     this.formattedDate = this.datePipe.transform(currentDate, 'yyyy-MM-ddTHH:mm:ss.SSSZ');
-    let transactions;
+
+    let transactions = {
+      date: this.formattedDate,
+      montant: `${this.amount_total}`,
+      destinataire: this.transactionForm.value.destinataire,
+      comptedebit: this.transactionForm.value.comptedebit,
+      statut: 'En attente',
+      type: "",
+      paydunyastatut: this.statusOfTransaction,
+      user: `/api/users/${this.idUser}`,
+      reference: "",
+      token: this.token_invoice
+    };
+
     if (this.selectedFirstImageAlt == "Wave" && this.selectedSecondImageAlt == "Orange Money") {
-      transactions = {
-        date: this.formattedDate,
-        montant: `${this.amount_total}`,
-        destinataire: this.transactionForm.value.destinataire,
-        comptedebit: this.transactionForm.value.comptedebit,
-        statut: 'En attente',
-        paydunyastatut: this.statusOfTransaction,
-        type: "Wave -> OM",
-        user: `/api/users/${this.idUser}`,
-        reference: "",
-        token: this.token_invoice
-      };
+      transactions.type = "Wave -> OM";
     } else if (this.selectedFirstImageAlt == "Orange Money" && this.selectedSecondImageAlt == "Wave") {
-      transactions = {
-        date: this.formattedDate,
-        montant: `${this.transactionForm.value.montant}`,
-        destinataire: this.transactionForm.value.destinataire,
-        comptedebit: this.transactionForm.value.comptedebit,
-        statut: 'En attente',
-        paydunyastatut: this.statusOfTransaction,
-        type: "OM -> Wave",
-        user: `/api/users/${this.idUser}`,
-        reference: "",
-        token: this.token_invoice
-      };
+      transactions.type = "OM -> Wave";
     } else if (this.selectedFirstImageAlt == "Orange Money" && this.selectedSecondImageAlt == "Free Money") {
-      transactions = {
-        date: this.formattedDate,
-        montant: `${this.transactionForm.value.montant}`,
-        destinataire: this.transactionForm.value.destinataire,
-        comptedebit: this.transactionForm.value.comptedebit,
-        statut: 'En attente',
-        paydunyastatut: this.statusOfTransaction,
-        type: "OM -> Free",
-        user: `/api/users/${this.idUser}`,
-        reference: "",
-        token: this.token_invoice
-      };
-      // } else if (this.selectedFirstImageAlt == "Free Money" && this.selectedSecondImageAlt == "Orange Money") {
-      //   // transactions = {
-      //   //   date: this.formattedDate,
-      //   //   montant: `${this.transactionForm.value.montant}`,
-      //   //   destinataire: this.transactionForm.value.destinataire,
-      //   //   comptedebit: this.transactionForm.value.comptedebit,
-      //   //   statut: 'En attente',
-      //   //   paydunyastatut: this.statusOfTransaction,
-      //   //   type: "Free -> OM",
-      //   //   user: `/api/users/${this.idUser}`,
-      //   //   reference: "",
-      //   //   token: this.token_invoice
-      //   // };
-      // } else if (this.selectedFirstImageAlt == "Free Money" && this.selectedSecondImageAlt == "Wave") {
-      //   // transactions = {
-      //   //   date: this.formattedDate,
-      //   //   montant: `${this.transactionForm.value.montant}`,
-      //   //   destinataire: this.transactionForm.value.destinataire,
-      //   //   comptedebit: this.transactionForm.value.comptedebit,
-      //   //   statut: 'En attente',
-      //   //   paydunyastatut: this.statusOfTransaction,
-      //   //   type: "Free -> Wave",
-      //   //   user: `/api/users/${this.idUser}`,
-      //   //   reference: "",
-      //   //   token: this.token_invoice
-      //   // };
-      //   this.isLoading = false;
-      //   this.showSwal('error', 'Les transfert venant de free sont momentanément indisponible. Mais vous pouvez utiliser les autres opérateurs.');
-      // 
+      transactions.type = "OM -> Free";
     } else if (this.selectedFirstImageAlt == "Wave" && this.selectedSecondImageAlt == "Free Money") {
-      transactions = {
-        date: this.formattedDate,
-        montant: `${this.transactionForm.value.montant}`,
-        destinataire: this.transactionForm.value.destinataire,
-        comptedebit: this.transactionForm.value.comptedebit,
-        statut: 'En attente',
-        paydunyastatut: this.statusOfTransaction,
-        type: "Wave -> Free",
-        user: `/api/users/${this.idUser}`,
-        reference: "",
-        token: this.token_invoice
-      };
+      transactions.type = "Wave -> Free";
+    } else if (this.selectedFirstImageAlt == "Wave" && this.selectedSecondImageAlt == "Mtn Money") {
+      transactions.type = "Wave -> MTN_CI";
+    } else if (this.selectedFirstImageAlt == "Wave" && this.selectedSecondImageAlt == "Moov Money") {
+      transactions.type = "Wave -> Moov_CI";
     }
     this.transactionService.createTransaction(transactions).subscribe({
       next: (response) => {
@@ -551,9 +530,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                           this.submitInvoiceTransaction();
                           this.transactionForm.reset();
                         }, 4000);
-                        this.fees = 0;
-                        this.amount_total = 0;
-                        this.amount = 0;
                       }
                     });
                 } else {
@@ -597,9 +573,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                           this.submitInvoiceTransaction();
                           this.transactionForm.reset();
                         }, 4000);
-                        this.fees = 0;
-                        this.amount_total = 0;
-                        this.amount = 0;
                       }
                     });
                 } else {
@@ -644,9 +617,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                           this.submitInvoiceTransaction();
                           this.transactionForm.reset();
                         }, 4000);
-                        this.fees = 0;
-                        this.amount_total = 0;
-                        this.amount = 0;
                       }
                     });
                 } else {
@@ -691,9 +661,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                           this.submitInvoiceTransaction();
                           this.transactionForm.reset();
                         }, 4000);
-                        this.fees = 0;
-                        this.amount_total = 0;
-                        this.amount = 0;
                       }
                     });
                 } else {
@@ -930,6 +897,20 @@ export class HomeComponent implements OnInit, OnDestroy {
           account_alias: this.transactionForm.value.destinataire,
           amount: this.transactionForm.value.montant,
           withdraw_mode: "free-money-senegal"
+        };
+        break;
+      case 'Moov Money':
+        invoice = {
+          account_alias: this.transactionForm.value.destinataire,
+          amount: this.transactionForm.value.montant,
+          withdraw_mode: "moov-ci"
+        };
+        break;
+      case 'Mtn Money':
+        invoice = {
+          account_alias: this.transactionForm.value.destinataire,
+          amount: this.transactionForm.value.montant,
+          withdraw_mode: "mtn-ci"
         };
         break;
       default:

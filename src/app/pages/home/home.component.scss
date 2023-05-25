@@ -12,3 +12,20 @@
 .disabled-button {
   opacity: 0.5; /* Adjust the opacity value as desired */
 }
+
+::ng-deep .custom-popover {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+::ng-deep .custom-popover .popover-header {
+  background-color: #ddd;
+  color: #555;
+  padding: 10px;
+  font-weight: bold;
+}
+
+::ng-deep .custom-popover .popover-body {
+  padding: 10px;
+}

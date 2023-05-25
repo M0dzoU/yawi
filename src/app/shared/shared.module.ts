@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './loader/loader.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
 const icons = {
   Mail, Link, PhoneCall, Clock, MapPin, Facebook, Twitter, Instagram, Linkedin, Send, Calendar, User, Server, Rss, Layout, LifeBuoy,
@@ -27,6 +28,7 @@ const icons = {
     CommonModule,
     FeatherModule.pick(icons),
     NgxPaginationModule,
+    NgbPopoverModule,
     FormsModule
   ],
   // tslint:disable-next-line: max-line-length

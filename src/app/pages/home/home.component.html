@@ -67,8 +67,7 @@
           </a>
 
           <!-- App Store button -->
-          <a class="market-btn apple-btn" role="button" data-bs-toggle="tooltip" data-bs-placement="top"
-            title="Télécharger sur App Store">
+          <a class="market-btn apple-btn" role="button" ngbPopover="Pas encore disponible sur les appareils IoS." popoverTitle="Information" placement="top" container="body" popoverClass="custom-popover">
             <span class="market-button-subtitle">Téléchager sur</span>
             <span class="market-button-title">App Store</span>
           </a>
@@ -92,12 +91,15 @@
                             width="24" height="24" class="logo-icon">
                           {{ selectedFirstImageAlt }} </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <li class="dropdown-item" *ngFor="let option of imageOption"
-                            (click)="onSelectFirstImage(option)">
-                            <img [src]="option.imagePath" [alt]="option.altText" width="24" height="24"
-                              class="logo-icon">
-                            {{ option.altText
-                            }}
+                          <li>
+                            <h6 class="dropdown-header">Wallets</h6>
+                          </li>
+                          <li class="dropdown-item" *ngFor="let option of fisrtImageOption"
+                            (click)="onSelectFirstImage(option)"><button class="dropdown-item" type="button"><img
+                                [src]="option.imagePath" [alt]="option.altText" width="32" height="32"
+                                class="logo-icon">
+                              {{ option.altText
+                              }}</button>
                           </li>
                         </ul>
                       </div>
@@ -107,13 +109,11 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">
-
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="icon-image">
                             <path stroke-linecap="round" stroke-linejoin="round"
                               d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
                           </svg>
-
                         </span>
                         <input type="number" class="form-control" placeholder="Montant" aria-label="Username"
                           aria-describedby="basic-addon1" formControlName="montant"
@@ -125,14 +125,12 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">
-
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                             class="main-grid-item-icon icon-image" fill="none" stroke="currentColor"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                             <rect height="11" rx="2" ry="2" width="18" x="3" y="11" />
                             <path d="M7 11V7a5 5 0 0 1 9.9-1" />
                           </svg>
-
                         </span>
                         <input [maxlength]="6" type="text" class="form-control" placeholder="Code d'autorisation"
                           aria-label="Username" formControlName="code_om" aria-describedby="basic-addon1">
@@ -172,12 +170,14 @@
                             width="24" height="24" class="logo-icon">
                           {{ selectedSecondImageAlt }} </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <li class="dropdown-item" *ngFor="let option of imageOption"
+                          <li>
+                            <h6 class="dropdown-header">Wallets</h6>
+                          </li>
+                          <li class="dropdown-item" *ngFor="let option of secondImageOption"
                             (click)="onSelectSecondImage(option)">
-                            <img [src]="option.imagePath" [alt]="option.altText" width="24" height="24"
-                              class="logo-icon">
-                            {{ option.altText
-                            }}
+                            <button class="dropdown-item" type="button"> <img [src]="option.imagePath"
+                                [alt]="option.altText" width="32" height="32" class="logo-icon"> {{ option.altText
+                              }}</button>
                           </li>
                         </ul>
                       </div>
@@ -201,7 +201,6 @@
                   </div>
                 </div>
               </fieldset>
-
               <button type="submit" class="valid-btn text-uppercase w-100" [disabled]="transactionForm.invalid"
                 [class.disabled-button]="transactionForm.invalid">Valider</button>
             </form>
@@ -362,7 +361,7 @@
   <div class="modal-body">
     <div class="text-center">
       <h6 class="text-uppercase text-primary"><b>Authentification</b></h6>
-      <p>Saisissez votre code secret pour vous connecter.</p>
+      <p>Saisissez votre code secret pour vous connecter. Tapez sur l'icône pour plus de détails. <span><a role="button" ngbPopover="Tapez le code secret que vous avez crée à l'inscription." popoverTitle="Information" placement="top" container="body" popoverClass="custom-popover"><img src="../../../assets/images/info.svg" alt="" class="icon-image"></a></span></p>
     </div>
     <div class="login-form mt-4">
       <form>
@@ -463,8 +462,8 @@
                       d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
                   </svg>
                 </span>
-                <input [maxlength]="4" type="password" class="form-control" placeholder="Code secret" aria-label="Username"
-                  formControlName="secret" aria-describedby="basic-addon1">
+                <input [maxlength]="4" type="password" class="form-control" placeholder="Code secret"
+                  aria-label="Username" formControlName="secret" aria-describedby="basic-addon1">
               </div>
             </div>
           </div>
@@ -486,14 +485,15 @@
                 <button class="form-control dropdown-toggle" type="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
                   <span *ngIf="!selectedCountryImg">Select an image</span>
-                  <img [src]="selectedCountryImg" [alt]="selectedCountryAlt" *ngIf="selectedCountryImg"
-                    width="24" height="24" class="logo-icon">
+                  <img [src]="selectedCountryImg" [alt]="selectedCountryAlt" *ngIf="selectedCountryImg" width="24"
+                    height="24" class="logo-icon">
                   {{ selectedCountryAlt }} </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li class="dropdown-item" *ngFor="let option of countryImg"
-                    (click)="onSelectCountryImage(option)">
-                    <img [src]="option.imagePath" [alt]="option.altText" width="24" height="24"
-                      class="logo-icon">
+                  <li>
+                    <h6 class="dropdown-header">Pays</h6>
+                  </li>
+                  <li class="dropdown-item" *ngFor="let option of countryImg" (click)="onSelectCountryImage(option)">
+                    <img [src]="option.imagePath" [alt]="option.altText" width="24" height="24" class="logo-icon">
                     {{ option.altText
                     }}
                   </li>
